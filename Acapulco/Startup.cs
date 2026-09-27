@@ -1,4 +1,7 @@
-﻿namespace Acapulco
+﻿using Acapulco.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace Acapulco
 {
     public class Startup
     {
@@ -16,6 +19,9 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<AcapulcoDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AcapulcoConnection")));
         }
 
         // Acá se arma el "pipeline": el orden en que la app procesa cada pedido que llega (una petición HTTP)
