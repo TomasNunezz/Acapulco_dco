@@ -1,0 +1,29 @@
+﻿@model List<Acapulco.Models.Producto>
+
+@{
+    ViewData["Title"] = "Catálogo";
+}
+
+<h1>Catálogo</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Nombre</td>
+                <td>@p.Categoria.Nombre</td>
+                <td>@p.Precio</td>
+                <td>@p.Stock</td>
+            </tr>
+        }
+    </tbody>
+</table>

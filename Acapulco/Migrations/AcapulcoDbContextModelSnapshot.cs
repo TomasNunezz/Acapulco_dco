@@ -36,6 +36,23 @@ namespace Acapulco.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nombre = "Sillas"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nombre = "Mesas"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nombre = "Sillones"
+                        });
                 });
 
             modelBuilder.Entity("Acapulco.Models.Producto", b =>
@@ -62,6 +79,7 @@ namespace Acapulco.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Stock")
@@ -72,6 +90,58 @@ namespace Acapulco.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("Productos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoriaId = 1,
+                            Descripcion = "Silla reclinable tapizada. Medidas: 60 x 70 x 105 cm.",
+                            ImagenUrl = "https://placehold.co/400x300?text=Silla+reclinable",
+                            Nombre = "Silla reclinable",
+                            Precio = 85000m,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoriaId = 1,
+                            Descripcion = "Silla de madera maciza. Medidas: 45 x 50 x 90 cm.",
+                            ImagenUrl = "https://placehold.co/400x300?text=Silla+de+comedor",
+                            Nombre = "Silla de comedor",
+                            Precio = 42000m,
+                            Stock = 24
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoriaId = 2,
+                            Descripcion = "Mesa de comedor para 6 personas. Medidas: 160 x 90 x 75 cm.",
+                            ImagenUrl = "https://placehold.co/400x300?text=Mesa+de+abeto",
+                            Nombre = "Mesa de madera de abeto",
+                            Precio = 210000m,
+                            Stock = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoriaId = 2,
+                            Descripcion = "Mesa ratona de living. Medidas: 90 x 50 x 40 cm.",
+                            ImagenUrl = "https://placehold.co/400x300?text=Mesa+ratona",
+                            Nombre = "Mesa ratona",
+                            Precio = 68000m,
+                            Stock = 8
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoriaId = 3,
+                            Descripcion = "Sillón de tres cuerpos en tela gris. Medidas: 210 x 90 x 85 cm.",
+                            ImagenUrl = "https://placehold.co/400x300?text=Sillon+3+cuerpos",
+                            Nombre = "Sillón de tres cuerpos",
+                            Precio = 450000m,
+                            Stock = 3
+                        });
                 });
 
             modelBuilder.Entity("Acapulco.Models.Producto", b =>
