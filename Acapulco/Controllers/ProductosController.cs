@@ -1,4 +1,5 @@
 ﻿using Acapulco.Data;
+using Acapulco.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,14 +14,27 @@ namespace Acapulco.Controllers
         {
             _context = context;
         }
-  
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(int? categoriaId)
         {
-         
-            var productos = await _context.Productos.Include(p => p.Categoria).ToListAsync();
+            
+            var consulta = _context.Productos.Include(p => p.Categoria).AsQueryable();
 
             
-            return View(productos);
+            if (categoriaId.HasValue)
+            {
+                consulta = consulta.Where(p => p.CategoriaId == categoriaId.Value);
+            }
+
+            
+            var modelo = new CatalogoViewModel
+            {
+                Productos = await consulta.ToListAsync(),
+                Categorias = await _context.Categorias.ToListAsync(),
+                CategoriaSeleccionadaId = categoriaId
+            };
+
+            return View(modelo);
         }
     }
 }

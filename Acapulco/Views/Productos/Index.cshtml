@@ -1,10 +1,20 @@
-﻿@model List<Acapulco.Models.Producto>
+﻿@model Acapulco.ViewModels.CatalogoViewModel
 
 @{
     ViewData["Title"] = "Catálogo";
 }
 
 <h1>Catálogo</h1>
+
+<div class="mb-4">
+    <a asp-action="Index" class="btn @(Model.CategoriaSeleccionadaId == null ? "btn-dark" : "btn-outline-dark")">Todos</a>
+
+    @foreach (var cat in Model.Categorias)
+    {
+        <a asp-action="Index" asp-route-categoriaId="@cat.Id"
+           class="btn @(Model.CategoriaSeleccionadaId == cat.Id ? "btn-dark" : "btn-outline-dark")">@cat.Nombre</a>
+    }
+</div>
 
 <table class="table">
     <thead>
@@ -16,7 +26,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var p in Model)
+        @foreach (var p in Model.Productos)
         {
             <tr>
                 <td>@p.Nombre</td>
