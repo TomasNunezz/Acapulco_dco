@@ -1,10 +1,21 @@
+using Acapulco.Data;
+
+
 namespace Acapulco
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            // Antes de arrancar, creamos los roles y el usuario Admin (si no existen)
+            using (var scope = host.Services.CreateScope())
+            {
+                await IdentitySeeder.InicializarAsync(scope.ServiceProvider);
+            }
+
+            host.Run();
         }
 
         // Acá le decimos a la aplicación: "para arrancar, usá la clase Startup"
