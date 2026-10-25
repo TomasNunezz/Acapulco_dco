@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Acapulco.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace Acapulco.Data
 {
-    public class AcapulcoDbContext : DbContext
+    public class AcapulcoDbContext : IdentityDbContext
     {
         // El constructor recibe las "opciones" de configuración (por ejemplo, la cadena de conexión a SQL Server)
         // y se las pasa a la clase base DbContext, que es la que hace todo el trabajo pesado por detrás

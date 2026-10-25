@@ -1,5 +1,6 @@
 ﻿using Acapulco.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Acapulco
 {
@@ -22,6 +23,9 @@ namespace Acapulco
 
             services.AddDbContext<AcapulcoDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AcapulcoConnection")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AcapulcoDbContext>();
         }
 
         // Acá se arma el "pipeline": el orden en que la app procesa cada pedido que llega (una petición HTTP)
@@ -38,6 +42,8 @@ namespace Acapulco
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
