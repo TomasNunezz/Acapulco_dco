@@ -1,0 +1,36 @@
+﻿@model Acapulco.ViewModels.RegistroViewModel
+
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<h1>Crear cuenta</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Registro", "Account", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.ConfirmarPassword, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.ConfirmarPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ConfirmarPassword, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-dark">Registrarme</button>
+        }
+    </div>
+</div>
