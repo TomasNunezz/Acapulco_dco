@@ -1,0 +1,35 @@
+﻿@model Acapulco.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Ingresar";
+}
+
+<h1>Ingresar</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.CheckBoxFor(m => m.Recordarme)
+                @Html.LabelFor(m => m.Recordarme)
+            </div>
+
+            <button type="submit" class="btn btn-dark">Ingresar</button>
+        }
+    </div>
+</div>

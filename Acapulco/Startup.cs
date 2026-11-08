@@ -38,16 +38,16 @@ namespace Acapulco
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseHttpsRedirection();// 1) ¿vino por conexión segura? si no, la redirige
+            app.UseStaticFiles();// 2) ¿pide un archivo (imagen, css)? se lo da
 
-            app.UseRouting();
+            app.UseRouting();// 3) ¿a qué Controller y método va esta dirección?
 
-            app.UseAuthentication();
+            app.UseAuthentication();// 4) ¿quién sos? (revisa la sesión iniciada)
 
-            app.UseAuthorization();
+            app.UseAuthorization();// 5) ¿tenés permiso para entrar acá?
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints =>// 6) ejecuta el Controller
             {
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -48,5 +48,40 @@ namespace Acapulco.Controllers
             }
             return View(modelo);
         }
+
+        // Muestra el formulario de login
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // Recibe el formulario cuando el usuario toca "Ingresar"
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel modelo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(modelo);
+            }
+
+            var resultado = await _signInManager.PasswordSignInAsync(
+                modelo.Email, modelo.Password, modelo.Recordarme, lockoutOnFailure: false);
+
+            if (resultado.Succeeded)
+            {
+                return RedirectToAction("Index", "Productos");
+            }
+
+            ModelState.AddModelError(string.Empty, "Email o contraseña incorrectos");
+            return View(modelo);
+        }
+        // Cierra la sesión
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Productos");
+        }
     }
 }   
