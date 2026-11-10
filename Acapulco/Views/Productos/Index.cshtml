@@ -24,6 +24,7 @@
             <th>Categoría</th>
             <th>Precio</th>
             <th>Stock</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
                 <td>@p.Categoria.Nombre</td>
                 <td>@p.Precio.ToString("C0")</td>
                 <td>@p.Stock</td>
+                <td><a asp-action="Detalle" asp-route-id="@p.Id" class="btn btn-sm btn-outline-dark">Ver detalle</a></td>
             </tr>
         }
     </tbody>

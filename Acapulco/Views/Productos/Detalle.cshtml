@@ -1,0 +1,30 @@
+﻿@model Acapulco.Models.Producto
+
+@{
+    ViewData["Title"] = Model.Nombre;
+}
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div style="width: 100%; height: 400px; background-image: url('@Model.ImagenUrl'); background-size: cover; background-position: center;"></div>
+    </div>
+
+    <div class="col-md-6">
+        <p class="text-muted mb-1">@Model.Categoria.Nombre</p>
+        <h1>@Model.Nombre</h1>
+        <h3 class="my-3">@Model.Precio.ToString("C0")</h3>
+
+        <p style="white-space: pre-line;">@Model.Descripcion</p>
+
+        @if (Model.Stock > 0)
+        {
+            <p class="text-success">Stock disponible: @Model.Stock</p>
+        }
+        else
+        {
+            <p class="text-danger">Sin stock</p>
+        }
+
+        <a asp-action="Index" class="btn btn-outline-dark">Volver al catálogo</a>
+    </div>
+</div>

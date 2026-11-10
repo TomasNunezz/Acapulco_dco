@@ -36,5 +36,19 @@ namespace Acapulco.Controllers
 
             return View(modelo);
         }
+
+        public async Task<IActionResult> Detalle(int id)
+        {
+            var producto = await _context.Productos
+                .Include(p => p.Categoria)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            return View(producto);
+        }
     }
 }
