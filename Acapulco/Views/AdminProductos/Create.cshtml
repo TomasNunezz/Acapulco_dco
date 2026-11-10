@@ -1,0 +1,55 @@
+﻿@model Acapulco.ViewModels.ProductoFormViewModel
+
+@{
+    ViewData["Title"] = "Nuevo producto";
+}
+
+<h1>Nuevo producto</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("Create", "AdminProductos", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Descripcion, new { @class = "form-label" })
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", rows = 4 })
+                @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Precio, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Precio, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Stock, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Stock, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Stock, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.ImagenUrl, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.ImagenUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ImagenUrl, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.CategoriaId, new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.CategoriaId, Model.Categorias, "Seleccionar categoría", new { @class = "form-select" })
+                @Html.ValidationMessageFor(m => m.CategoriaId, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-dark">Guardar</button>
+            <a asp-action="Index" class="btn btn-outline-dark">Cancelar</a>
+        }
+    </div>
+</div>

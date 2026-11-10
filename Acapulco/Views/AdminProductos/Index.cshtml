@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Acapulco.Models.Producto>
+
+@{
+    ViewData["Title"] = "Administrar productos";
+}
+
+<h1>Administrar productos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-dark">Nuevo producto</a>
+</p>
+
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td><div style="width: 80px; height: 60px; background-image: url('@p.ImagenUrl'); background-size: cover;"></div></td>
+                <td>@p.Nombre</td>
+                <td>@p.Categoria.Nombre</td>
+                <td>@p.Precio.ToString("C0")</td>
+                <td>@p.Stock</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-sm btn-outline-dark">Editar</a>
+                    @using (Html.BeginForm("Delete", "AdminProductos", FormMethod.Post, new { @class = "d-inline", onsubmit = "return confirm('¿Seguro que querés eliminar este producto?');" }))
+                    {
+                        @Html.Hidden("id", p.Id)
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
