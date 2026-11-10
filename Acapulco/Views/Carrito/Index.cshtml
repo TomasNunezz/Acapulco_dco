@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Acapulco.Models.CarritoItem>
+
+@{
+    ViewData["Title"] = "Mi carrito";
+}
+
+<h1>Mi carrito</h1>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (!Model.Any())
+{
+    <p>Tu carrito está vacío.</p>
+    <a asp-controller="Productos" asp-action="Index" class="btn btn-dark">Ir al catálogo</a>
+}
+else
+{
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td><div style="width: 80px; height: 60px; background-image: url('@i.Producto.ImagenUrl'); background-size: cover;"></div></td>
+                    <td>@i.Producto.Nombre</td>
+                    <td>@i.Producto.Precio.ToString("C0")</td>
+                    <td>
+                        @using (Html.BeginForm("CambiarCantidad", "Carrito", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", i.Id)
+                            @Html.TextBox("cantidad", i.Cantidad, new { @class = "form-control form-control-sm", style = "width: 70px;", type = "number", min = 1, max = i.Producto.Stock, onchange = "this.form.submit();" })
+                        }
+                    </td>
+                    <td>@((i.Cantidad * i.Producto.Precio).ToString("C0"))</td>
+                    <td>
+                        @using (Html.BeginForm("Quitar", "Carrito", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", i.Id)
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Quitar</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total: @Model.Sum(i => i.Cantidad * i.Producto.Precio).ToString("C0")</h4>
+
+    @using (Html.BeginForm("Confirmar", "Carrito", FormMethod.Post))
+    {
+        <button type="submit" class="btn btn-dark">Confirmar compra</button>
+    }
+}

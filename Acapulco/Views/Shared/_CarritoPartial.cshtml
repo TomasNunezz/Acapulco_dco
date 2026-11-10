@@ -1,0 +1,10 @@
+﻿@using System.Security.Claims
+@inject Acapulco.Data.AcapulcoDbContext Context
+
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var cantidad = Context.CarritoItems.Where(i => i.UsuarioId == usuarioId).Sum(i => i.Cantidad);
+
+    <a class="btn btn-outline-dark btn-sm me-2 align-self-center" asp-controller="Carrito" asp-action="Index">Carrito (@cantidad)</a>
+}

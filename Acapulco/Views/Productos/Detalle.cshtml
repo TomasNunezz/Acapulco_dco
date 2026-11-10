@@ -19,6 +19,15 @@
         @if (Model.Stock > 0)
         {
             <p class="text-success">Stock disponible: @Model.Stock</p>
+
+            <div class="mb-3">
+                @using (Html.BeginForm("Agregar", "Carrito", FormMethod.Post, new { @class = "d-flex gap-2" }))
+                {
+                    @Html.Hidden("productoId", Model.Id)
+                    @Html.TextBox("cantidad", 1, new { @class = "form-control", style = "width: 90px;", type = "number", min = 1, max = Model.Stock })
+                    <button type="submit" class="btn btn-dark">Agregar al carrito</button>
+                }
+            </div>
         }
         else
         {

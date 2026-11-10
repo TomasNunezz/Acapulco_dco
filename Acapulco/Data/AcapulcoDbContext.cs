@@ -19,9 +19,13 @@ namespace Acapulco.Data
 
         // DbSet<Categoria> = va a existir una tabla llamada "Categorias"
         public DbSet<Categoria> Categorias { get; set; }
-    
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<CarritoItem> CarritoItems { get; set; }
+        public DbSet<Compra> Compras { get; set; }
+        public DbSet<CompraItem> CompraItems { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
@@ -29,6 +33,21 @@ namespace Acapulco.Data
             modelBuilder.Entity<Producto>()
                 .Property(p => p.Precio)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<CompraItem>()
+            .Property(i => i.PrecioUnitario)
+            .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Compra>()
+                .Property(c => c.Total)
+                .HasPrecision(18, 2);
+
+            // Si se borra un producto, NO se borra el historial de compras que lo incluye
+            modelBuilder.Entity<CompraItem>()
+                .HasOne(i => i.Producto)
+                .WithMany()
+                .HasForeignKey(i => i.ProductoId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Categoria>().HasData(
                 new Categoria { Id = 1, Nombre = "Sillas" },
